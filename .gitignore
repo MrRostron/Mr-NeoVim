@@ -1,0 +1,29 @@
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Cache directories
+.luarc.json
+.lock
+.lua/
+
+# Plugin files
+lazy-lock.json
+
+# Session files
+Session.vim
+
+# Netrw files
+.netrwhist
+
+# Backup files
+.backup/
+.undo/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local overrides (if any)
+local/

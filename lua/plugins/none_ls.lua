@@ -7,7 +7,7 @@ return {
                 null_ls.builtins.formatting.stylua,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.isort,
-                null_ls.builtins.diagnostics.mypy,
+                --null_ls.builtins.diagnostics.mypy,
             },
         })
         vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})

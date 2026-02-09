@@ -39,7 +39,7 @@ return {
                 },
 
                 -- Analysis features
-                reportMissingImports = true,
+                reportMissingImports = false,
                 reportMissingTypeStubs = false, -- Set to true if you use type stubs
                 reportUnusedCallResult = "none",
                 reportPrivateImportUsage = "warning",
@@ -50,7 +50,7 @@ return {
 
             -- Completion settings
             completion = {
-                completeFunctionParens = false, -- Don't auto-add parentheses
+                completeFunctionParens = true, -- Don't auto-add parentheses
             },
 
             -- Indexing settings (for larger projects)

@@ -1,6 +1,14 @@
+-- Get capabilities from nvim-cmp
+local capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    _G.cmp_capabilities or {}
+)
+
 return {
     cmd = { "pyright-langserver", "--stdio" }, -- Command to start the language server
-    filetypes = { "python" },               -- File types that this server will handle
+    filetypes = { "python" }, -- File types that this server will handle
+    capabilities = capabilities, -- ← ADD THIS LINE (you were missing it!)
     root_markers = {
         "pyproject.toml",
         "setup.py",
@@ -9,8 +17,13 @@ return {
         "Pipfile",
         "pyrightconfig.json",
         ".git",
-    },        -- Markers to identify the root of the project
+    }, -- Markers to identify the root of the project
     settings = { -- Settings for the language server
+        python = { -- IMPORTANT: This is at the root level, not inside pyright
+            pythonPath = ".venv/bin/python", -- FIXED: Should point to the binary, not the directory
+            venvPath = ".",
+            venv = ".venv",
+        },
         pyright = {
             -- Auto-import settings
             autoImportCompletions = true,
@@ -22,6 +35,8 @@ return {
                 diagnosticMode = "workspace", -- or "openFilesOnly"
                 useLibraryCodeForTypes = true,
                 typeCheckingMode = "basic", -- "off", "basic", "strict"
+                venvPath = ".", -- Look in the current directory
+                venv = ".venv", -- Standard name for virtual environment
 
                 -- Analysis settings that can be toggled
                 diagnosticSeverityOverrides = {
@@ -59,19 +74,6 @@ return {
             -- Organize imports
             organizeImports = true,
         },
-    },
-
-    -- Single file support
-    single_file_support = true,
-
-    -- Capabilities (if you want to customize further)
-    capabilities = {
-        textDocument = {
-            completion = {
-                completionItem = {
-                    snippetSupport = true,
-                },
-            },
-        },
-    },
-}
+    }, -- ← THIS WAS MISSING! Closes the settings table
+    single_file_support = true, -- ← ADD THIS LINE (optional but recommended)
+} -- ← THIS WAS MISSING! Closes the return table

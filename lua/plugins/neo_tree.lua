@@ -8,7 +8,7 @@ return {
     },
     config = function()
         require("neo-tree").setup({
-            close_if_last_window = true,
+            close_if_last_window = true,  -- This handles auto-closing automatically!
             popup_border_style = "rounded",
             enable_git_status = true,
             enable_diagnostics = true,
@@ -190,21 +190,8 @@ return {
         vim.keymap.set("n", "<leader>bs", ":Neotree show<CR>", { desc = "Show Neo-Tree" })
         vim.keymap.set("n", "<leader>bh", ":Neotree hide<CR>", { desc = "Hide Neo-Tree" })
 
-        -- Auto-close neo-tree if it's the last window
-        vim.api.nvim_create_autocmd("BufEnter", {
-            group = vim.api.nvim_create_augroup("NeoTreeAutoClose", { clear = true }),
-            callback = function()
-                local current_buf = vim.api.nvim_get_current_buf()
-                local current_win = vim.api.nvim_get_current_win()
-                local buf_type = vim.api.nvim_buf_get_option(current_buf, "filetype")
-
-                if buf_type == "neo-tree" and vim.api.nvim_win_get_config(current_win).relative == "" then
-                    local wins = vim.api.nvim_list_wins()
-                    if #wins == 1 then
-                        vim.cmd("quit")
-                    end
-                end
-            end,
-        })
+        --- AUTO-CLOSE AUTOCMD REMOVED ---
+        -- The setting `close_if_last_window = true` handles this automatically
+        -- No need for custom autocmd that causes E37 errors
     end,
 }
